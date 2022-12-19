@@ -5,14 +5,13 @@
 #include <Udp.h>
 #include <TimeLib.h>
 #include <Wire.h>
-#include <DS1307RTC.h>  // a basic DS1307 library that returns time as a time_t
+#include <DS1307RTC.h> 
 
 const int GSR=A0;
 int sensorValue=0;
 int gsr_average=0;
  
 void setup(){
-  // start Arduino Serial with baud rate 9600
 
   Serial.begin(9600);
   while (!Serial) ; // wait until Arduino Serial Monitor opens
@@ -28,13 +27,13 @@ void loop(){
   if (Serial.available()) {
     time_t t = processSyncMessage();
     if (t != 0) {
-      RTC.set(t);   // set the RTC and the system time to the received value
+      RTC.set(t);   
       setTime(t);          
     }
 
   }
 
-  for(int i=0;i<10;i++)           //Average the 10 measurements to remove the glitch
+  for(int i=0;i<10;i++)           
       {
       sensorValue=analogRead(GSR);
       sum += sensorValue;
@@ -61,15 +60,15 @@ void digitalClockDisplay(){
 }
 
 void printDigits(int digits){
-  // utility function for digital clock display: prints preceding colon and leading 0
+  
   Serial.print(":");
   if(digits < 10)
     Serial.print('0');
   Serial.print(digits);
 }
 
-/*  code to process time sync messages from the serial port   */
-#define TIME_HEADER  "T"   // Header tag for serial time sync message
+
+#define TIME_HEADER  "T"  
 
 unsigned long processSyncMessage() {
   unsigned long pctime = 0L;
@@ -79,7 +78,7 @@ unsigned long processSyncMessage() {
      pctime = Serial.parseInt();
      return pctime;
      if( pctime < DEFAULT_TIME) { // check the value is a valid time (greater than Jan 1 2013)
-       pctime = 0L; // return 0 to indicate that the time is not valid
+       pctime = 0L; 
      }
   }
   return pctime;
