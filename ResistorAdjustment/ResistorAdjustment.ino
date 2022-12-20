@@ -15,12 +15,12 @@ void setup(){
   // start Arduino Serial with baud rate 9600
 
   Serial.begin(9600);
-  while (!Serial) ; // wait until Arduino Serial Monitor opens
+  //while (!Serial) ; // wait until Arduino Serial Monitor opens
   setSyncProvider(RTC.get);   // the function to get the time from the RTC
-  if(timeStatus()!= timeSet) 
-     Serial.println("Unable to sync with the RTC");
-  else
-     Serial.println("RTC has set the system time");  
+  //if(timeStatus()!= timeSet) 
+     //Serial.println("Unable to sync with the RTC");
+  //else
+     //Serial.println("RTC has set the system time");  
 }
  
 void loop(){
@@ -40,8 +40,9 @@ void loop(){
       delay(5);
       }
    gsr_average = sum/10;
+   Serial.print(" ");
    Serial.println(gsr_average);
-   digitalClockDisplay(); 
+   //digitalClockDisplay(); 
    delay(100);
 }
 
@@ -56,7 +57,7 @@ void digitalClockDisplay(){
   //Serial.print(month());
   //Serial.print(" ");
   //Serial.print(year()); 
-  //Serial.println(); 
+  Serial.println(); 
 }
 
 void printDigits(int digits){
@@ -83,5 +84,4 @@ unsigned long processSyncMessage() {
   }
   return pctime;
 }
-
 
